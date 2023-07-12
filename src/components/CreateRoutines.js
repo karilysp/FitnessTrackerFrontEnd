@@ -1,20 +1,23 @@
 import React, { useState } from "react";
-import { getAllRoutines, createRoutine } from "../api";
+import { createRoutine } from "../api";
+import {  useNavigate } from 'react-router-dom';
 
 
-const CreateRoutines = () => {
+const CreateRoutines = ({ token, getAllRoutines }) => {
+    const navigate = useNavigate();
     const [routineName, setRoutineName] = useState("");
     const [routineGoal, setRoutineGoal] = useState("");
     const [checked, setChecked] = useState(false);
 
     async function handleSubmit(event) {
         event.preventDefault();
-        await createRoutine(routineName, routineGoal);
-        const result = await getAllRoutines();
-        getAllRoutines(result);
-        setRoutineName("");
-        setRoutineGoal("");
-        setChecked(event.target.checked);
+        const routines = {routineName, routineGoal}
+        const results = await createRoutine(token, routines)
+        if (results.success) {
+            getAllRoutines();
+            navigate('/routines')
+
+        }
     }
     function handleChange(event) {
         event.preventDefault();
@@ -55,6 +58,7 @@ const CreateRoutines = () => {
                             name="isPublic"
                             checked={checked}
                             onChange={handleChange}
+                            
                         />
                       
                     </label>

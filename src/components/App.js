@@ -8,11 +8,12 @@ import Routines from './Routines';
 import Activities from './Activities';
 import CreateRoutines from './CreateRoutines'
 import UpdateActivities from './UpdateActivities'
-import { getAllPublicRoutines, myData } from '../api'
+import { getAllRoutines, myData } from '../api'
 
 export function App() {
     const [token, setToken] = useState('');
     const [user, setUser] = useState({});
+    const [routines, setGetRoutines] = useState([]);
     const [LoggedIn, setLoggedIn] = useState(false);
 
  
@@ -23,11 +24,17 @@ export function App() {
     function tokenCheck() {
         if (window.localStorage.getItem('token')) {
             setToken(window.localStorage.getItem('token'));
-        
+        console.log(token)
         }
     }
 
-
+    async function getRoutines() {
+        const results = await getAllRoutines();
+        if (results.success) {
+           setGetRoutines(results.data.routines)
+          
+        }
+    }
 
     async function getMyData() {
         const results = await myData(token);
@@ -43,7 +50,7 @@ export function App() {
     }, [])
 
     useEffect(() => {
-            getAllPublicRoutines();
+            getRoutines();
         if (token) {
             getMyData();
             setLoggedIn(true);
@@ -71,15 +78,12 @@ export function App() {
                 />
                 <Route
                     path='/login'
-                    element={<Login setToken={setToken} navigate={navigate} />}
+                    element={<Login setToken={setToken} navigate={navigate}  />}
                 />
-                <Route
-                    path='/home'
-                    element={<Home />}
-                />
+               
                 <Route
                     path='/routines'
-                    element={<Routines />}
+                    element={<Routines routines={routines} />}
                 />
             
                 <Route
@@ -88,13 +92,17 @@ export function App() {
                 />
                 <Route
                     path='/create-routines'
-                    element={<CreateRoutines />}
+                    element={<CreateRoutines token={token} getAllRoutines={getAllRoutines} />}
                 />
                 <Route
                     path='/update-activities'
                     element={<UpdateActivities />}
                 />
-            
+                <Route
+                    path='/home'
+                    element={<Home />}
+                />
+
 
             </Routes>
         </div>

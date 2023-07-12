@@ -4,7 +4,7 @@ import React from "react"
 import { Link } from "react-router-dom";
 
 
-function Routines() {
+function Routines(token) {
     const [routines, setRoutines] = useState([]);
 
     const publicRoutines = async () => {
@@ -15,8 +15,11 @@ function Routines() {
 
     return (
         <div>
+
+            {token === null ? '' : <Link className="create-routines" to='/create-routines'>(Create Routines)</Link>}
             {routines.map((routine) => {
                 return (
+                    
                     <div key={routine.id} className="routines">
                         <div className="displayCard">
                             <h1 className="routineTitle">{routine.name}</h1>

@@ -6,21 +6,29 @@ function Register({ setToken }) {
     const [password, setPassword] = useState('');
 
 
-    async function handleSubmit(event) {
-        event.preventDefault();
-        const user = { username, password };
+    // async function handleSubmit(event) {
+    //     event.preventDefault();
+    //     const user = { username, password };
         
 
-        const results = await registerUser(user);
+    //     const results = await registerUser(user);
     
 
-        if (results.success) {
-            setToken(results.data.token);
-            window.localStorage.setItem("token", results.data.token)
-        }
+    //     if (results.success) {
+    //         setToken(results.data.token);
+    //         window.localStorage.setItem("token", results.data.token)
+    //     }
 
-    }
+    // }
 
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const user = { username, password};
+        const token = await registerUser(user);
+        localStorage.setItem("token", token);
+        setUsername("");
+        setPassword("");
+    };
     return (
         <div className='register'>
             <form onSubmit={handleSubmit}>

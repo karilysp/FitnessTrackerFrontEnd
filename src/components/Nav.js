@@ -21,8 +21,7 @@ function Nav({ setToken, setLoggedIn, LoggedIn }) {
                 <>
                     <ul>
 
-                        <li><Link to='/home'>Home</Link></li>
-                        <li> <Link to='/Routines'>Routines</Link></li>
+                        
                         <li><Link to='/activities'>Activities</Link></li>
                         <li><button onClick={logout}>Log Out</button></li>
 
@@ -36,6 +35,7 @@ function Nav({ setToken, setLoggedIn, LoggedIn }) {
                         <li><Link to='/home'>Home</Link></li>
                         <li> <Link to='/Routines'>Routines</Link></li>
                         <li><Link to='/login'>Login</Link></li>
+                        
 
                     </ul>
 

@@ -21,7 +21,7 @@ import { login } from '../api'
             setToken(results.data.token);
             window.localStorage.setItem("token", results.data.token)
             window.alert('Thanks for logging in to our service.')
-            navigate('/posts');
+            navigate('/routines');
 
         }
 

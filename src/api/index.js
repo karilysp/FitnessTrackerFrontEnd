@@ -9,13 +9,13 @@ export const registerUser = async (user) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
-                user
-            })
+            body: JSON.stringify(
+               user
+            ),
         });
-        const result = await response.json();
-        console.log(result)
-        return result
+        const results = await response.json();
+        console.log(results)
+        return results
     } catch (err) {
         console.error(err);
     }
@@ -30,12 +30,13 @@ export const login = async (user) => {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify({
+            body: JSON.stringify(
                 user
-            })
+            )
         });
-        const result = await response.json();
-        return result
+        const results = await response.json();
+        console.log(results)
+        return results
     } catch (err) {
         console.error(err);
     }
@@ -49,9 +50,8 @@ export const myData = async (token) => {
                 'Authorization': `Bearer ${token}`
             },
         });
-        const result = await response.json();
-
-        return result
+        const results = await response.json();
+        return results
     } catch (err) {
         console.error(err);
     }
@@ -85,7 +85,6 @@ export const getAllActivities = async () => {
             }
         );
         const result = await response.json();
-        console.log(result)
         return result;
     } catch (error) {
         throw error;
@@ -161,7 +160,7 @@ export const getAllRoutines = async () => {
         });
 
         const result = await response.json();
-        console.log(result);
+       
         return result
     } catch (error) {
         throw error;
@@ -170,12 +169,14 @@ export const getAllRoutines = async () => {
 
 export const createRoutine = async (token, routineName, routineGoal) => {
     try {
+        
         const response = await fetch(`${BASE_URL}/routines`, {
             method: "POST",
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${token}`
             },
+            
             body: JSON.stringify({
                 name: routineName,
                 goal: routineGoal,
@@ -183,6 +184,7 @@ export const createRoutine = async (token, routineName, routineGoal) => {
             })
         });
         const result = await response.json();
+
         console.log(result);
         return result
     } catch (error) {
@@ -200,7 +202,8 @@ export const updateRoutine = async (token, routineName, routineGoal, id) => {
             },
             body: JSON.stringify({
                 name: routineName,
-                goal: routineGoal
+                goal: routineGoal,
+                isPublic: true
             })
         });
         const result = await response.json();
